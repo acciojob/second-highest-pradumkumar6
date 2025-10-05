@@ -1,17 +1,19 @@
-//your JS code here. If required.
 function secondHighest(arr) {
-  // If the array has fewer than 2 elements, return -Infinity
-  if (arr.length < 2) return -Infinity;
+  if (!Array.isArray(arr) || arr.length < 2) return -Infinity;
 
-  // Create a Set to remove duplicates
-  let unique = [...new Set(arr)];
+  // Find the highest and second highest manually
+  let first = -Infinity;
+  let second = -Infinity;
 
-  // If all elements are the same, return -Infinity
-  if (unique.length < 2) return -Infinity;
+  for (let num of arr) {
+    if (num > first) {
+      second = first;
+      first = num;
+    } else if (num > second && num < first) {
+      second = num;
+    }
+  }
 
-  // Sort in descending order
-  unique.sort((a, b) => b - a);
-
-  // Return the second element
-  return unique[1];
+  // If no valid second-highest found (all same)
+  return second === -Infinity ? -Infinity : second;
 }
